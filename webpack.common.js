@@ -5,8 +5,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
-    popup: path.resolve('src/popup/popup.tsx'),
-    options: path.resolve('src/options/options.tsx'),
     background: path.resolve('src/background/background.ts'),
     contentScript: path.resolve('src/contentScript/contentScript.ts'),
   },
@@ -41,11 +39,7 @@ module.exports = {
           to: path.resolve('dist'),
         }
       ]
-    }),
-    ...getHtmlPlugins([
-      'popup',
-      'options'
-    ]),
+    })
   ],
   output: {
     filename: '[name].js',
@@ -58,12 +52,4 @@ module.exports = {
       }
     },
   }
-}
-
-function getHtmlPlugins(chunks) {
-  return chunks.map(chunk => new HtmlPlugin({
-    title: 'React Extension',
-    filename: `${chunk}.html`,
-    chunks: [chunk],
-  }))
 }
